@@ -152,8 +152,8 @@ floodmap_union = unary_union(floodmap.geometry)
 # Generate Voronoi clusters and identify empty areas (no unioned polygons)
 all_polygons = generate_voronoi_clusters_and_empty_areas(station_coords, floodmap_union)
 
-# Combine specified polygons
-combined_polygons = combine_specified_polygons(all_polygons, [(1, 19), (12, 21), (3, 18)])
+# If you like to combine specified polygons
+# combined_polygons = combine_specified_polygons(all_polygons, [(1, 19), (12, 21), (3, 18)])
 
 # Reorder polygons so that the polygon number corresponds to the station number
 reordered_polygons = reorder_polygons_by_station(station_coords, combined_polygons)
