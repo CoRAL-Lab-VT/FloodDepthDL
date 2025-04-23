@@ -2,4 +2,18 @@
 ## Introduction
 Deep learning is a powerful modeling approach for rapid assessments of environmental phenomena, such as mapping flood hazards in coastal systems. However, predicting compound flood dynamics, i.e., flood extent and inundation depth over time, from cyclones is often done with physically-based models because they capture physical drivers, nonlinear interactions, and hysteresis in system behavior. Here, we show that state-of-the-art deep learning models can efficiently learn spatiotemporal nonlinear dependencies over the evolution of flood events. Our proposed model combines spatial feature extraction of CNN with temporal regression of LSTM, and a novel cluster-based temporal attention framework that assimilates multimodal inputs, to accurately replicate flood maps generated with a calibrated coastal hydrodynamic model. 
 
-## 
+## Requirements
+To run this project, you will need the following dependencies and tools: 
+Python 3.8 or higher 
+TensorFlow 2.x 
+Keras 
+NumPy 
+Pandas 
+Matplotlib 
+Geopandas 
+Rasterio 
+Scipy 
+Optuna 
+Pyproj 
+Shapely 
+Install the required packages using pip:
