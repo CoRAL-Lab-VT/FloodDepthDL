@@ -5,29 +5,29 @@ Deep learning is a powerful modeling approach for rapid assessments of environme
 ## Requirements
 To run this project, you will need the following dependencies and tools: 
 
-Python 3.8 or higher 
+- Python 3.8 or higher 
 
-TensorFlow 2.x 
+- TensorFlow 2.x 
 
-Keras 
+- Keras 
 
-NumPy 
+- NumPy 
 
-Pandas 
+- Pandas 
 
-Matplotlib 
+- Matplotlib 
 
-Geopandas 
+- Geopandas 
 
-Rasterio 
+- Rasterio 
 
-Scipy 
+- Scipy 
 
-Optuna 
+- Optuna 
 
-Pyproj 
+- Pyproj 
 
-Shapely 
+- Shapely 
 
 Install the required packages using pip:
 
