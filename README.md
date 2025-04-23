@@ -68,27 +68,76 @@ This script implements the DL model, including data preprocessing, model constru
     - Normalizes data, handling NaN values with a custom mask.
     - Creates sequences for temporal modeling (6-hour intervals).
   - ### Custom Layers:
-    - StandardCBAM: Convolutional Block Attention Module for spatial attention.
-    - CustomAttentionLayer: Temporal attention with emphasis on critical timesteps.
-    - ClusterBasedApplication: Applies cluster-specific attention to spatial features.
+    - *StandardCBAM*: Convolutional Block Attention Module for spatial attention.
+    - *CustomAttentionLayer*: Temporal attention with emphasis on critical timesteps.
+    - *ClusterBasedApplication*: Applies cluster-specific attention to spatial features.
   - ### Model Architecture:
-    - Spatial Branch: Three ConvLSTM2D layers with CBAM for feature extraction.
-    - Temporal Branch: Two LSTM layers with attention for water level dynamics.
-    - Integration: Modulates spatial output with cluster-based temporal context.
-  - Bayesian Optimization: Uses Optuna to tune hyperparameters (e.g., filters, units, learning rate).
-  - Loss Function: Custom masked MSE to ignore invalid (NaN) pixels.
+    - *Spatial Branch*: Three ConvLSTM2D layers with CBAM for feature extraction.
+    - *Temporal Branch*: Two LSTM layers with attention for water level dynamics.
+    - *Integration*: Modulates spatial output with cluster-based temporal context.
+  - **Bayesian Optimization**: Uses Optuna to tune hyperparameters (e.g., filters, units, learning rate).
+  - **Loss Function**: Custom masked MSE to ignore invalid (NaN) pixels.
   - ### Inputs:
-    - Spatial data directories: atm_pressure/, wind_speed/, precipitation/, river_discharge/, DEM/, water_depth/.
-    - Temporal data: training_water_level/.
-    - Cluster shapefile: reordered_polygons.shp.
+    - Spatial data directories: *atm_pressure/, wind_speed/, precipitation/, river_discharge/, DEM/, water_depth/*.
+    - Temporal data: *training_water_level/*.
+    - Cluster shapefile: *reordered_polygons.shp*.
   - ### Outputs:
-    - Model checkpoints and optimization results in checkpoint_BO/.
-    - Normalized data parameters: normalization_params.npy.
+    - Model checkpoints and optimization results in *checkpoint_BO/*.
+    - Normalized data parameters: *normalization_params.npy*.
 
 ## Usage
 ### Step 1: Generate Voronoi Clusters
-****
+Run the Voronoi cluster generation script:
+```bash
+python voronoi_clusters.py
+```
+- **Expected Output**:
+  - reordered_polygons.shp in the root directory.
+  
+### Step 2: Train the Model
+Run the flood depth prediction script with Bayesian optimization:
+```bash
+python flood_depth_prediction.py
+```
+- **Process**:
+  - Loads and preprocesses spatial and temporal data.
+  - Performs 100 trials of hyperparameter tuning using Optuna.
+  - Trains the model with the best hyperparameters, saving results in checkpoint_BO/.
+- **Customization**:
+  - Adjust sequence_length (default: 6) in the script to change the temporal window.
+  - Modify hyperparameter ranges in build_model_with_cbam_weighted for different tuning options.
 
+### Step 3: Make Predictions
+After training, use the trained model for predictions (requires modification of the script):
 
+1. Load the best model from checkpoint_BO/.
+2. Prepare test data in the same format as training data.
+3. Run inference and denormalize predictions using saved normalization_params.npy.
+
+Example modification (add to the end of flood_depth_prediction.py):
+```bash
+# Load best model (assumes model saved as 'best_model.h5')
+model = tf.keras.models.load_model('checkpoint_BO/best_model.h5', custom_objects={
+    'StandardCBAM': StandardCBAM, 'CustomAttentionLayer': CustomAttentionLayer,
+    'ClusterBasedApplication': ClusterBasedApplication, 'masked_mse': masked_mse,
+    'TrueLoss': TrueLoss
+})
+
+# Load test data (example paths)
+test_X_norm = X_train_norm  # Replace with actual test data
+test_masks = nan_masks
+test_water_level = water_level_data_sequences
+
+# Predict
+predictions_norm = model.predict([test_X_norm, test_masks, test_water_level])
+
+# Denormalize
+params = np.load('checkpoint_BO/normalization_params.npy', allow_pickle=True).item()
+y_pred = (predictions_norm - 0.1) * (params['y_train_max'] - params['y_train_min']) / 0.9 + params['y_train_min']
+
+# Save predictions as TIFF (example)
+with rasterio.open('prediction.tif', 'w', driver='GTiff', height=y_pred.shape[1], width=y_pred.shape[2], count=1, dtype=y_pred.dtype, crs=crs, transform=transform) as dst:
+    dst.write(y_pred[0], 1)
+```
 
 
