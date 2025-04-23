@@ -44,17 +44,19 @@ cd FloodDepthDL
 
 ## Source Code Description
 The repository includes two primary Python scripts:
+
 **1. voronoi_clusters.py script**
 This script generates Voronoi clusters based on observation station coordinates and a floodmap boundary, saving them as a shapefile (reordered_polygons.shp). These clusters are used in the cluster-based attention mechanism.
-- Key Functions:
-  - generate_voronoi_clusters_and_empty_areas: Creates Voronoi polygons from station coordinates, clipped to the floodmap boundary.
-  - reorder_polygons_by_station: Reorders polygons to match station indices.
-  - combine_specified_polygons: Optionally combines specified polygon pairs (commented out by default).
-  - save_polygons_as_shapefile: Saves the polygons as a shapefile.
-  - plot_floodmap_with_voronoi_and_labels: Visualizes the floodmap with labeled clusters.
-- Inputs:
-  - Station coordinates from CSV files in observation_points/.
-  - Floodmap boundary from GBay_cells_polygon.shp.
+### - Key Functions:
+  - *generate_voronoi_clusters_and_empty_areas*: Creates Voronoi polygons from station coordinates, clipped to the floodmap boundary.
+  - *reorder_polygons_by_station*: Reorders polygons to match station indices.
+  - *combine_specified_polygons*: Optionally combines specified polygon pairs (commented out by default).
+  - *save_polygons_as_shapefile*: Saves the polygons as a shapefile.
+  - *plot_floodmap_with_voronoi_and_labels*: Visualizes the floodmap with labeled clusters.
+### - Inputs:
+  - Station coordinates from CSV files in *observation_points/*.
+  - Floodmap boundary from *GBay_cells_polygon.shp*.
+  - 
 
 
 
