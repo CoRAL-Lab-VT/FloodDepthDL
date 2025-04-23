@@ -60,7 +60,7 @@ This script generates Voronoi clusters based on observation station coordinates 
   - *reordered_polygons.shp*: Shapefile of Voronoi clusters.
   - *floodmap_with_voronoi_and_labels_reordered.png*: Visualization of clusters.
 
-**2. flood_depth_prediction.py**
+**2. ModelSimulation.py**
 This script implements the DL model, including data preprocessing, model construction, Bayesian optimization, and training. It predicts flood depth maps based on spatial and temporal inputs.
 - ### Key Components:
   - ### Data Loading and Preprocessing:
@@ -97,7 +97,7 @@ python voronoi_clusters.py
 ### Step 2: Train the Model
 Run the flood depth prediction script with Bayesian optimization:
 ```bash
-python flood_depth_prediction.py
+python ModelSimulation.py
 ```
 - **Process**:
   - Loads and preprocesses spatial and temporal data.
@@ -108,13 +108,13 @@ python flood_depth_prediction.py
   - Modify hyperparameter ranges in build_model_with_cbam_weighted for different tuning options.
 
 ### Step 3: Make Predictions
-After training, use the trained model for predictions (requires modification of the script):
+After training, use the trained model for predictions *ModelPrediction.py*:
 
-1. Load the best model from checkpoint_BO/.
+1. Load the best model from *checkpoint_BO/*.
 2. Prepare test data in the same format as training data.
-3. Run inference and denormalize predictions using saved normalization_params.npy.
+3. Run inference and denormalize predictions using saved *normalization_params.npy*.
 
-Example modification (add to the end of flood_depth_prediction.py):
+Example modification (add to the end of *ModelSimulation.py*):
 ```bash
 # Load best model (assumes model saved as 'best_model.h5')
 model = tf.keras.models.load_model('checkpoint_BO/best_model.h5', custom_objects={
@@ -135,7 +135,7 @@ predictions_norm = model.predict([test_X_norm, test_masks, test_water_level])
 params = np.load('checkpoint_BO/normalization_params.npy', allow_pickle=True).item()
 y_pred = (predictions_norm - 0.1) * (params['y_train_max'] - params['y_train_min']) / 0.9 + params['y_train_min']
 
-# Save predictions as TIFF (example)
+# Save predictions as TIFF 
 with rasterio.open('prediction.tif', 'w', driver='GTiff', height=y_pred.shape[1], width=y_pred.shape[2], count=1, dtype=y_pred.dtype, crs=crs, transform=transform) as dst:
     dst.write(y_pred[0], 1)
 ```
