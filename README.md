@@ -43,6 +43,7 @@ Delft3D-FM: Version 2021.03 (optional, for generating ground truth data; availab
 
 ## Installation and Setup
 **Clone the Repository**
+
 Follow these steps to set up the environment and install dependencies:
 ```bash
 git clone https://github.com/CoRAL-Lab-VT/FloodDepthDL.git
