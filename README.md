@@ -56,7 +56,38 @@ This script generates Voronoi clusters based on observation station coordinates 
 - ### Inputs:
   - Station coordinates from CSV files in *observation_points/*.
   - Floodmap boundary from *GBay_cells_polygon.shp*.
-  - 
+- ### Outputs:
+  - *reordered_polygons.shp*: Shapefile of Voronoi clusters.
+  - *floodmap_with_voronoi_and_labels_reordered.png*: Visualization of clusters.
+
+**2. flood_depth_prediction.py**
+This script implements the DL model, including data preprocessing, model construction, Bayesian optimization, and training. It predicts flood depth maps based on spatial and temporal inputs.
+- ### Key Components:
+  - ### Data Loading and Preprocessing:
+    - Loads TIFF images (e.g., atmospheric pressure, wind speed) and CSV water level data.
+    - Normalizes data, handling NaN values with a custom mask.
+    - Creates sequences for temporal modeling (6-hour intervals).
+  - ### Custom Layers:
+    - StandardCBAM: Convolutional Block Attention Module for spatial attention.
+    - CustomAttentionLayer: Temporal attention with emphasis on critical timesteps.
+    - ClusterBasedApplication: Applies cluster-specific attention to spatial features.
+  - ### Model Architecture:
+    - Spatial Branch: Three ConvLSTM2D layers with CBAM for feature extraction.
+    - Temporal Branch: Two LSTM layers with attention for water level dynamics.
+    - Integration: Modulates spatial output with cluster-based temporal context.
+  - Bayesian Optimization: Uses Optuna to tune hyperparameters (e.g., filters, units, learning rate).
+  - Loss Function: Custom masked MSE to ignore invalid (NaN) pixels.
+  - ### Inputs:
+    - Spatial data directories: atm_pressure/, wind_speed/, precipitation/, river_discharge/, DEM/, water_depth/.
+    - Temporal data: training_water_level/.
+    - Cluster shapefile: reordered_polygons.shp.
+  - ### Outputs:
+    - Model checkpoints and optimization results in checkpoint_BO/.
+    - Normalized data parameters: normalization_params.npy.
+
+## Usage
+### Step 1: Generate Voronoi Clusters
+****
 
 
 
