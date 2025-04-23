@@ -140,4 +140,32 @@ with rasterio.open('prediction.tif', 'w', driver='GTiff', height=y_pred.shape[1]
     dst.write(y_pred[0], 1)
 ```
 
+## Data Availability
+All data used in this study are publicly available:
 
+- **Legacy DEM**: NOAA’s National Geophysical Data Center
+- **CUDEM**: NOAA’s Data Access Viewer
+- **Land Cover Maps**: Multi-Resolution Land Characteristics Consortium
+- **Water Level Data**: NOAA’s Tides & Currents
+- **River Discharge**: USGS National Water Dashboard
+- **Barotropic Tides**: TPXO 8.0 Global Inverse Tide Model
+- **Rainfall Data**: Harris County Flood Warning System
+- **ERA5 Reanalysis**: European Centre for Medium-Range Weather Forecasts
+
+## Contact
+For questions or issues, please open an issue on GitHub or contact:
+
+- Samuel Daramola (samueldaramola@vt.edu)
+- David F. Muñoz (davidmunozpauta@vt.edu)
+
+# Contributing
+
+Contributions are welcome and highly appreciated. You can contribute by:
+
+- Reporting Bugs
+- Suggesting Enhancements
+- Sending Pull Requests
+
+# License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
