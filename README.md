@@ -53,7 +53,7 @@ cd FloodDepthDL
 ## Source Code Description
 The repository includes two primary Python scripts:
 
-**1. voronoi_clusters.py script**
+**1. VoronoiTessellationPolygons.py script**
 This script generates Voronoi clusters based on observation station coordinates and a floodmap boundary, saving them as a shapefile (reordered_polygons.shp). These clusters are used in the cluster-based attention mechanism.
 - ### Key Functions:
   - *generate_voronoi_clusters_and_empty_areas*: Creates Voronoi polygons from station coordinates, clipped to the floodmap boundary.
