@@ -30,3 +30,21 @@ Pyproj
 Shapely 
 
 Install the required packages using pip:
+
+```bash
+pip install tensorflow keras numpy pandas matplotlib geopandas rasterio scipy optuna pyproj shapely
+```
+## Installation 
+Follow these steps to set up the project environment:
+
+```bash
+git clone https://github.com/CoRAL-Lab-VT/FloodDepthDL.git
+```
+
+
+
+
+
+
+
+
