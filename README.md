@@ -42,11 +42,7 @@ Python: 3.8 or higher
 Delft3D-FM: Version 2021.03 (optional, for generating ground truth data; available at https://oss.deltares.nl/web/delft3d/downloads)
 
 ## Installation and Setup
-**1. Clone the Repository**:
-```bash
-pip install -r requirements.txt
-```
-**2. Clone the Repository**:
+**Clone the Repository**
 Follow these steps to set up the environment and install dependencies:
 ```bash
 git clone https://github.com/CoRAL-Lab-VT/FloodDepthDL.git
