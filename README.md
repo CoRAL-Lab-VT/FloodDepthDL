@@ -166,6 +166,4 @@ Contributions are welcome and highly appreciated. You can contribute by:
 - Suggesting Enhancements
 - Sending Pull Requests
 
-# License
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
