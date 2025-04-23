@@ -2,7 +2,11 @@
 ## Introduction
 This repository contains the source code for a deep learning (DL) model designed to predict cyclone-induced compound flood dynamics, including flood extent and inundation depth over time, in coastal regions. The model is applied to Galveston Bay, TX, a region highly susceptible to compound flooding from storm surges, river overflow, and heavy rainfall. It leverages a hybrid architecture combining Convolutional Neural Networks (CNN) for spatial feature extraction and Long Short-Term Memory (LSTM) networks for temporal regression, enhanced by a novel cluster-based temporal attention mechanism. This approach captures spatiotemporal dependencies and hysteresis effects, replicating the behavior of physically-based models like Delft3D-FM with greater computational efficiency. 
 
-The model integrates multimodal inputs such as atmospheric pressure, wind speed, precipitation, river discharge, digital elevation models (DEM), and water level data from observation stations. It was trained and validated on historical flood events including Hurricanes Ike (2008), Harvey (2017), Nicholas (2021), Beryl (2024), and torrential rainfall events in 2015 (Memorial Day) and 2016 (Tax Day). Key features include:
+The model leverages multimodal inputs, including:
+- **Spatial features**: Atmospheric pressure, precipitation and wind speed (https://cds.climate.copernicus.eu/#!/home); digital elevation model (DEM) (https://www.ncei.noaa.gov/access/ metadata/landing-page/bin/iso?id=gov.noaa.ngdc.mgg.dem:403, https://coast.noaa.gov/); and river discharge (https://dashboard.waterdata.usgs.gov/app/nwd/en/), provided as GeoTIFF images at 50-meter resolution.
+- **Temporal features**: Hourly water level data from 21 observation stations .
+
+It was trained and validated on historical flood events including Hurricanes Ike (2008), Harvey (2017), Nicholas (2021), Beryl (2024), and torrential rainfall events in 2015 (Memorial Day) and 2016 (Tax Day). Key features include:
 
 - **Cluster-based Temporal Attention**: Uses Voronoi tessellation to partition the spatial domain into clusters aligned with observation stations, modulating predictions with localized temporal dynamics.
 - **Bayesian Optimization**: Employs Optuna to tune hyperparameters, ensuring optimal model performance.
@@ -12,8 +16,7 @@ The source code is organized into scripts for generating Voronoi clusters and tr
 
 ## Requirements
 To run this project, you will need the following dependencies and tools: 
-
-- Python 3.8 or higher 
+ 
 - TensorFlow 2.x 
 - Keras 
 - NumPy 
@@ -25,7 +28,6 @@ To run this project, you will need the following dependencies and tools:
 - Optuna (for hyperparameter tuning)
 - Pyproj 
 - Shapely
-- Optional: NVIDIA GPU with CUDA support for faster computation
 
 Install the required packages using pip:
 ```bash
@@ -35,7 +37,16 @@ pip install tensorflow keras numpy pandas matplotlib geopandas rasterio scipy op
 - A GPU (e.g., NVIDIA A100) is strongly recommended for training due to the computational intensity of ConvLSTM layers and Bayesian optimization. 
 - At least 16 GB of RAM for data preprocessing and model training.
 
-## Installation 
+## Software Recommendations
+Python: 3.8 or higher
+Delft3D-FM: Version 2021.03 (optional, for generating ground truth data; available at https://oss.deltares.nl/web/delft3d/downloads)
+
+## Installation and Setup
+**1. Clone the Repository**:
+```bash
+pip install -r requirements.txt
+```
+**2. Clone the Repository**:
 Follow these steps to set up the environment and install dependencies:
 ```bash
 git clone https://github.com/CoRAL-Lab-VT/FloodDepthDL.git
@@ -158,12 +169,16 @@ For questions or issues, please open an issue on GitHub or contact:
 - Samuel Daramola (samueldaramola@vt.edu)
 - David F. Muñoz (davidmunozpauta@vt.edu)
 
-# Contributing
-
+## Contributing
 Contributions are welcome and highly appreciated. You can contribute by:
 
 - Reporting Bugs
 - Suggesting Enhancements
 - Sending Pull Requests
 
+## References
+Refer to the manuscript for a complete list of references. Key citations include:
+
+Daramola, S., et al. (2025). A Cluster-based Temporal Attention Approach for Predicting Cyclone-induced Compound Flood Dynamics.
+Muñoz, D.F., et al. (2024). Quantifying cascading uncertainty in compound flood modeling with linked process-based and machine learning models. Hydrology and Earth System Sciences, 28, 2531–2553.
 
