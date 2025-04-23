@@ -63,7 +63,7 @@ This script generates Voronoi clusters based on observation station coordinates 
   - *plot_floodmap_with_voronoi_and_labels*: Visualizes the floodmap with labeled clusters.
 - ### Inputs:
   - Station coordinates from CSV files in *observation_points/*.
-  - Floodmap boundary from *GBay_cells_polygon.shp*.
+  - Study area floodmap boundary/shapefile e.g *GBay_cells_polygon.shp*.
 - ### Outputs:
   - *reordered_polygons.shp*: Shapefile of Voronoi clusters.
   - *floodmap_with_voronoi_and_labels_reordered.png*: Visualization of clusters.
