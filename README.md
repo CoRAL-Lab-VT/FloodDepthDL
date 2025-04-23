@@ -14,44 +14,47 @@ The source code is organized into scripts for generating Voronoi clusters and tr
 To run this project, you will need the following dependencies and tools: 
 
 - Python 3.8 or higher 
-
 - TensorFlow 2.x 
-
 - Keras 
-
 - NumPy 
-
 - Pandas 
-
 - Matplotlib 
-
 - Geopandas 
-
 - Rasterio 
-
 - Scipy 
-
 - Optuna (for hyperparameter tuning)
-
 - Pyproj 
 - Shapely
 - Optional: NVIDIA GPU with CUDA support for faster computation
 
 Install the required packages using pip:
-
 ```bash
 pip install tensorflow keras numpy pandas matplotlib geopandas rasterio scipy optuna pyproj shapely
 ```
-## Installation 
-Follow these steps to set up the project environment:
+## Hardware Recommendations
+- A GPU (e.g., NVIDIA A100) is strongly recommended for training due to the computational intensity of ConvLSTM layers and Bayesian optimization. 
+- At least 16 GB of RAM for data preprocessing and model training.
 
+## Installation 
+Follow these steps to set up the environment and install dependencies:
 ```bash
 git clone https://github.com/CoRAL-Lab-VT/FloodDepthDL.git
+cd FloodDepthDL
 ```
 
-
-
-
+## Source Code Description
+The repository includes two primary Python scripts:
+**1. voronoi_clusters.py script**
+This script generates Voronoi clusters based on observation station coordinates and a floodmap boundary, saving them as a shapefile (reordered_polygons.shp). These clusters are used in the cluster-based attention mechanism.
+- Key Functions:
+  - generate_voronoi_clusters_and_empty_areas: Creates Voronoi polygons from station coordinates, clipped to the floodmap boundary.
+  - reorder_polygons_by_station: Reorders polygons to match station indices.
+  - combine_specified_polygons: Optionally combines specified polygon pairs (commented out by default).
+  - save_polygons_as_shapefile: Saves the polygons as a shapefile.
+  - plot_floodmap_with_voronoi_and_labels: Visualizes the floodmap with labeled clusters.
+- Inputs:
+  - Station coordinates from CSV files in observation_points/.
+  - Floodmap boundary from GBay_cells_polygon.shp.
 
 
 
