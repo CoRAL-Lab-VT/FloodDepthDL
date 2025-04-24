@@ -177,5 +177,5 @@ Contributions are welcome and highly appreciated. You can contribute by:
 Refer to these papers for a detailed explanation:
 
 - Daramola, S., et al. (2025). A Cluster-based Temporal Attention Approach for Predicting Cyclone-induced Compound Flood Dynamics.
-- Muñoz, D.F., et al. (2024). Quantifying cascading uncertainty in compound flood modeling with linked process-based and machine learning models. Hydrology and Earth System Sciences, 28, 2531–2553.
+- Muñoz, D.F., et al. (2024). Quantifying cascading uncertainty in compound flood modeling with linked process-based and machine learning models. Hydrology and Earth System Sciences, 28, 2531–2553. https://doi.org/10.5194/hess-28-2531-2024
 
