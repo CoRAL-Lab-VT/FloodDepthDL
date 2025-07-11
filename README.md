@@ -1,3 +1,5 @@
+# Redirect to the[ LSTM-SAM repository](https://github.com/CoRAL-Lab-VT/LSTM-SAM/)
+
 # A Cluster-based Temporal Attention Approach for Predicting Cyclone-induced Compound Flood Dynamics
 ## Introduction
 This repository contains the source code for a deep learning (DL) model designed to predict cyclone-induced compound flood dynamics, including flood extent and inundation depth over time, in coastal regions. The model is applied to Galveston Bay, TX, a region highly susceptible to compound flooding from storm surges, river overflow, and heavy rainfall. It leverages a hybrid architecture combining Convolutional Neural Networks (CNN) for spatial feature extraction and Long Short-Term Memory (LSTM) networks for temporal regression, enhanced by a novel cluster-based temporal attention mechanism. This approach captures spatiotemporal dependencies and hysteresis effects, replicating the behavior of physically-based models like Delft3D-FM with greater computational efficiency. 
